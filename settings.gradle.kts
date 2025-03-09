@@ -21,4 +21,3 @@ dependencyResolutionManagement {
 
 rootProject.name = "food2fork"
 include(":app")
- 
