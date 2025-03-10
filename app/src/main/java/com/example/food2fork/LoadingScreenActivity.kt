@@ -1,6 +1,8 @@
 package com.example.food2fork
 
+import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
@@ -20,15 +22,25 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import com.example.food2fork.ui.theme.Food2forkTheme
 import io.ktor.client.HttpClient
+import io.ktor.client.call.body
 import io.ktor.client.request.get
+import io.ktor.client.request.url
 import io.ktor.client.statement.bodyAsText
+import io.ktor.client.statement.request
+import io.ktor.http.HttpHeaders
+import io.ktor.http.headers
 import kotlinx.coroutines.launch
 
 class LoadingScreenActivity : ComponentActivity() {
-    private val client = HttpClient()
-
     private suspend fun getRecipes(): String {
-        val response = client.get("https://ktor.io/docs/")
+        val client = HttpClient()
+
+        val response = client.get("https://food2fork.ca/api/recipe/search/?page=2&query=beef%20carrot%20potato%20onion") {
+            headers {
+                append(HttpHeaders.Authorization, "Token 9c8b06d329136da358c2d00e76946b0111ce2c48")
+            }
+        }
+
         return response.bodyAsText()
     }
 
@@ -46,6 +58,10 @@ class LoadingScreenActivity : ComponentActivity() {
                         } catch (error: Exception) {
                             error.localizedMessage ?: "error"
                         }
+
+                        val intent = Intent(this@LoadingScreenActivity, RecipesListActivity::class.java)
+                        intent.putExtra("request_data", response)
+                        startActivity(intent)
                     }
                 }
 
