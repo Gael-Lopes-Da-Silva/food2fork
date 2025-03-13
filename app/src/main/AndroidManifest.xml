@@ -15,17 +15,17 @@
         android:theme="@style/Theme.Food2fork"
         tools:targetApi="31">
         <activity
-            android:name=".RecipeInfosActivity"
+            android:name=".activity.RecipeDetailsActivity"
             android:exported="false"
             android:label="@string/title_activity_recipe_infos"
             android:theme="@style/Theme.Food2fork" />
         <activity
-            android:name=".RecipesListActivity"
+            android:name=".activity.RecipesListActivity"
             android:exported="false"
             android:label="@string/title_activity_recipes_list"
             android:theme="@style/Theme.Food2fork" />
         <activity
-            android:name=".LoadingScreenActivity"
+            android:name=".activity.LoadingScreenActivity"
             android:exported="true"
             android:theme="@style/Theme.Food2fork">
             <intent-filter>
